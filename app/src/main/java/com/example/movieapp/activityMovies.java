@@ -11,10 +11,12 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class activityMovies extends AppCompatActivity {
     TextView textview;
     ImageView imageView;
-    ArrayList<MainActivity.popularMovies> myList = new ArrayList<MainActivity.popularMovies>;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,19 +24,9 @@ public class activityMovies extends AppCompatActivity {
         textview = (TextView) findViewById(R.id.title);
         imageView = (ImageView) findViewById(R.id.poster);
         //for (int i=0; i<= MainActivity.popularMovies.size(); i++) {
-            textview.setText(MainActivity.popularMovies.get(0));
-            Picasso.get().load(MainActivity.popularMovies.get(1)).into(imageView);
+            textview.setText(MainActivity.popularMovies.get(10));
+            Picasso.get().load(MainActivity.popularMovies.get(11)).into(imageView);
        // }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ListViewHolder view = (ListViewHolder) convertView;
-            if (view == null) {
-                view = new ListViewHolder(context);
-            }
-            ListData log = getItem(position);
-            view.setLog(log);
-            return view;
-        }
+//https://www.geeksforgeeks.org/cardview-using-recyclerview-in-android-with-example/
     }
 }
