@@ -2,8 +2,11 @@ package com.example.movieapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -37,10 +40,14 @@ public class MainActivity extends AppCompatActivity {
     static Map<String, String> movies = new HashMap<String, String>();
     static List<String> popularMovies = new ArrayList<>();
 
+
+
+    Button button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -52,8 +59,17 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        RequestQueue queue = Volley.newRequestQueue(this);
+        button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, activityMovies.class);
+                startActivity(intent);
+            }
+        });
     }
+
+
         public void getJsonRep()throws IOException {
             URL urlForGetRequest = new URL("https://api.themoviedb.org/3/movie/popular?api_key=8a7ef7cc2644c64c0de94fb16a453d29");
                     String readLine = null;
