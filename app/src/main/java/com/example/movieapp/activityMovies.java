@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 public class activityMovies extends AppCompatActivity {
     TextView textview;
     ImageView imageView;
+    ArrayList<MainActivity.popularMovies> myList = new ArrayList<MainActivity.popularMovies>;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,5 +25,16 @@ public class activityMovies extends AppCompatActivity {
             textview.setText(MainActivity.popularMovies.get(0));
             Picasso.get().load(MainActivity.popularMovies.get(1)).into(imageView);
        // }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ListViewHolder view = (ListViewHolder) convertView;
+            if (view == null) {
+                view = new ListViewHolder(context);
+            }
+            ListData log = getItem(position);
+            view.setLog(log);
+            return view;
+        }
     }
 }
