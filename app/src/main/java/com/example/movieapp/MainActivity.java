@@ -3,6 +3,7 @@ package com.example.movieapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     //final TextView textView = (TextView) findViewById(R.id.title_movie);
     static Map<String, String> movies = new HashMap<String, String>();
     static List<String> popularMovies = new ArrayList<>();
+    static List<String> uriMovies = new ArrayList<>();
 
 
 
@@ -101,9 +103,11 @@ public class MainActivity extends AppCompatActivity {
                     {
                         title = results.getJSONObject(i).getString("title");
                         poster = results.getJSONObject(i).getString("poster_path");
+                        poster = "https://image.tmdb.org/t/p/w500" + poster;
                         if(!title.isEmpty()){
+
                             popularMovies.add(title);
-                            popularMovies.add("https://image.tmdb.org/t/p/w500"+poster);
+                            uriMovies.add(poster);
                         }
                     }
 
