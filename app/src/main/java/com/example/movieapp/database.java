@@ -71,9 +71,9 @@ public class database extends SQLiteOpenHelper {
 
         Cursor cursor =db.query("Utilisateur", ColonnesUtilisateur, "ID = ?",new String[]{"1"},null,null,null);
         if( cursor != null && cursor.moveToFirst() ){
-            utilisateur.username =cursor.getString(cursor.getColumnIndex("Avatar"));
-            utilisateur.mail=cursor.getString(cursor.getColumnIndex("DateNaissance"));
-            utilisateur.password=cursor.getString(cursor.getColumnIndex("Sexe"));
+            utilisateur.username =cursor.getString(cursor.getColumnIndex("Username"));
+            utilisateur.mail=cursor.getString(cursor.getColumnIndex("Email"));
+            utilisateur.password=cursor.getString(cursor.getColumnIndex("Password"));
 
             cursor.close();
             return true;
