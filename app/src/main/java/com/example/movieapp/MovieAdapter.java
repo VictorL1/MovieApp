@@ -49,6 +49,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder> 
         MovieModel model = movieModelArrayList.get(position);
         holder.movieName.setText(model.getMovie_name());
         holder.movieIV.setImageURI(model.getMovie_image());
+        Picasso.get().load(movieModelArrayList.get(position).getMovie_image()).into(holder.movieIV);
+        holder.movieRate.setText(String.valueOf(model.getMovie_rate()) + "⭐");
     }
 
     @Override
@@ -63,11 +65,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.Viewholder> 
     public class Viewholder extends RecyclerView.ViewHolder {
         private ImageView movieIV;
         private TextView movieName;
+        private TextView movieRate;
 
         public Viewholder(@NonNull View itemView) {
             super(itemView);
             movieIV = itemView.findViewById(R.id.idIVMovieImage);
             movieName = itemView.findViewById(R.id.idTVMovieName);
+            movieRate = itemView.findViewById(R.id.idTVMovieRating);
         }
     }
 }
