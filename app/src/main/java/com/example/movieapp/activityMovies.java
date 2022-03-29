@@ -39,7 +39,7 @@ public class activityMovies extends AppCompatActivity {
         movieModelArrayList = new ArrayList<>();
         for(int i=0; i<= MainActivity.popularMovies.size()-2; i++) {
 
-            movieModelArrayList.add(new MovieModel(MainActivity.popularMovies.get(i), Uri.parse(MainActivity.uriMovies.get(i)) ));
+            movieModelArrayList.add(new MovieModel(MainActivity.popularMovies.get(i), Uri.parse(MainActivity.uriMovies.get(i)),MainActivity.rateMovies.get(i) ));
         }
 
 

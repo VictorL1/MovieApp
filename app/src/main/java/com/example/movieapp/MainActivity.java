@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     static Map<String, String> movies = new HashMap<String, String>();
     static List<String> popularMovies = new ArrayList<>();
     static List<String> uriMovies = new ArrayList<>();
+    static List<Long> rateMovies = new ArrayList<>();
 
 
 
@@ -61,11 +62,20 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        button = (Button) findViewById(R.id.button);
+        button = (Button) findViewById(R.id.buttonMenu);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, activityMovies.class);
+                startActivity(intent);
+            }
+        });
+
+        button = (Button) findViewById(R.id.buttonSignIn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, activitySignIn.class);
                 startActivity(intent);
             }
         });
@@ -98,16 +108,19 @@ public class MainActivity extends AppCompatActivity {
 
                     String title;
                     String poster ;
+                    Long rate;
                     List<String> listSearch= new ArrayList(); ;
                     for (int i = 0; i < results.length(); i++)
                     {
                         title = results.getJSONObject(i).getString("title");
                         poster = results.getJSONObject(i).getString("poster_path");
                         poster = "https://image.tmdb.org/t/p/w500" + poster;
+                        rate = results.getJSONObject(i).getLong("vote_average");
                         if(!title.isEmpty()){
 
                             popularMovies.add(title);
                             uriMovies.add(poster);
+                            rateMovies.add(rate);
                         }
                     }
 
