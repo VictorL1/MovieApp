@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -37,30 +39,15 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
 
-    //final TextView textView = (TextView) findViewById(R.id.title_movie);
-    static Map<String, String> movies = new HashMap<String, String>();
-    static List<String> popularMovies = new ArrayList<>();
-    static List<String> uriMovies = new ArrayList<>();
-    static List<Long> rateMovies = new ArrayList<>();
-
-
-
     Button button;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (android.os.Build.VERSION.SDK_INT > 9)
-        {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-        try {
-            getJsonRep();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         button = (Button) findViewById(R.id.buttonMenu);
         button.setOnClickListener(new View.OnClickListener() {
@@ -81,59 +68,5 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-        public void getJsonRep()throws IOException {
-            URL urlForGetRequest = new URL("https://api.themoviedb.org/3/movie/popular?api_key=8a7ef7cc2644c64c0de94fb16a453d29");
-                    String readLine = null;
-            HttpURLConnection conection = (HttpURLConnection) urlForGetRequest.openConnection();
-            conection.setRequestMethod("GET");
-
-            int responseCode = conection.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(conection.getInputStream()));
-                StringBuffer response = new StringBuffer();
-                while ((readLine = in.readLine()) != null) {
-                    response.append(readLine);
-                }
-                in.close();
-                String jsonRep = response.toString();
-
-                JSONObject obj = null;
-
-
-                try {
-                    obj = new JSONObject(jsonRep);
-                    JSONArray results = obj.getJSONArray("results");
-
-                    String title;
-                    String poster ;
-                    Long rate;
-                    List<String> listSearch= new ArrayList(); ;
-                    for (int i = 0; i < results.length(); i++)
-                    {
-                        title = results.getJSONObject(i).getString("title");
-                        poster = results.getJSONObject(i).getString("poster_path");
-                        poster = "https://image.tmdb.org/t/p/w500" + poster;
-                        rate = results.getJSONObject(i).getLong("vote_average");
-                        if(!title.isEmpty()){
-
-                            popularMovies.add(title);
-                            uriMovies.add(poster);
-                            rateMovies.add(rate);
-                        }
-                    }
-
-
-
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-        }
-
     }
 
-}

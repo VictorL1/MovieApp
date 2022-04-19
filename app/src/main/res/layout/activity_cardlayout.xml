@@ -10,7 +10,8 @@
     app:cardElevation="8dp"
     app:cardMaxElevation="10dp"
     app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    android:clickable="true">
 
     <!--
         In the above cardview widget
@@ -25,8 +26,13 @@
     -->
 
     <RelativeLayout
+        android:id="@+id/CardLayout"
+
         android:layout_width="match_parent"
-        android:layout_height="122dp">
+        android:layout_height="122dp"
+
+        android:clickable="true">
+
 
         <!--ImageVIew to display our Course Image-->
         <ImageView
@@ -61,10 +67,8 @@
             android:id="@+id/idTVMovieRating"
             android:layout_width="29dp"
             android:layout_height="21dp"
-            android:layout_below="@id/idTVMovieName"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="32dp"
 
             android:layout_marginBottom="35dp"
             android:layout_toEndOf="@id/idIVMovieImage"
