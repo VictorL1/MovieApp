@@ -19,7 +19,7 @@ public class database extends SQLiteOpenHelper {
     public static final String Password = "Password";
 
     public database(@Nullable Context context) {
-        super(context, "MovieDatabase", null, 1);
+        super(context, "MovieDatabase", null, 3);
 
     }
 
@@ -81,4 +81,59 @@ public class database extends SQLiteOpenHelper {
         }
         return false;
     }
+
+    public void insertUser(Utilisateur user){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("username", user.getUsername());
+        cv.put("email", user.getMail());
+        cv.put("password", user.getPassword());
+
+        db.insert("utilisateur",null, cv);
+    }
+/*
+    public void updateUser(Utilisateur user){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("username", user.getUsername());
+        cv.put("email", user.getMail());
+        cv.put("password", user.getPassword());
+
+        db.update("utilisateur",cv,"_id=?",new String[]{String.valueOf(user.getId())});
+    }
+
+
+    public void deleteUser(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+
+
+        db.delete("utilisateur","_id=?",new String[]{String.valueOf(id)});
+
+    }
+
+    public Cursor getAllUsers(){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM utilisateur", null);
+
+        return c;
+    }
+
+    public Utilisateur getOneUser(int id){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.query("utilisateur", new String[]{"_id", "username", "mail","password"},"_id=?",
+                new String[]{String.valueOf(id)},null, null, null);
+
+        c.moveToFirst();
+        Utilisateur user = new Utilisateur(c.getInt(0),c.getString(1), c.getString(2), c.getString(3));
+
+        return user;
+    }
+
+
+ */
 }
