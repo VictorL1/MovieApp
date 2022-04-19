@@ -2,17 +2,36 @@ package com.example.movieapp;
 
 public class Utilisateur {
 
+    public int id;
     public String username;
     public String mail;
     String password;
 
 
-    public Utilisateur()
+    public Utilisateur(int id, String username, String mail, String password)
     {
 
-        this.username="";
-        this.mail="";
-        this.password="";
+        this.id= id;
+        this.username= username;
+        this.mail=mail;
+        this.password=password;
+    }
+
+    public Utilisateur(String username, String mail, String password) {
+        this.username = username;
+        this.mail = mail;
+        this.password = password;
+    }
+
+    public Utilisateur() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
