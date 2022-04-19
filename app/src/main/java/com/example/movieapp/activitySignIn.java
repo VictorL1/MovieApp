@@ -13,8 +13,8 @@ import android.widget.TextView;
 public class activitySignIn extends AppCompatActivity {
 
     Button b;
-    TextView pseudo;
-    EditText mail, mdp;
+
+    EditText mail, mdp, pseudo;
 
     database h = new database(this);
 
@@ -23,7 +23,7 @@ public class activitySignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        pseudo = findViewById(R.id.textViewPseudo);
+        pseudo = findViewById(R.id.EditTextPseudo);
         mail = findViewById(R.id.EditTextEmail);
         mdp = findViewById(R.id.EditTextMDP);
 
@@ -37,7 +37,7 @@ public class activitySignIn extends AppCompatActivity {
                 Utilisateur user = new Utilisateur(pseudo.getText().toString(),mail.getText().toString(),mdp.getText().toString());
 
                 h.insertUser(user);
-                Intent i = new Intent(activitySignIn.this,activityMovies.class);
+                Intent i = new Intent(activitySignIn.this,MainActivity.class);
                 startActivity(i);
 
             }
