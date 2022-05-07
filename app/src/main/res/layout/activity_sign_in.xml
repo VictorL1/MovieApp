@@ -37,6 +37,7 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,11 +88,12 @@
         android:layout_marginTop="60dp"
         android:ems="10"
         android:inputType="textPersonName"
-
+        android:password="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditTextEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/EditTextEmail"
+         />
 
     <TextView
         android:id="@+id/textViewMDP"
@@ -119,9 +121,46 @@
         android:ems="10"
 
         android:inputType="textPersonName"
+        android:password="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextMDP" />
+
+    <Button
+        android:id="@+id/back_on_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:backgroundTint="#00FFFFFF"
+        android:text="Retour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSignIn" />
+
+    <ImageButton
+        android:id="@+id/btn_eye1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="#00FFFFFF"
+        android:src="@mipmap/ic_eye"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toEndOf="@+id/EditTextMDP"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextEmail" />
+
+    <ImageButton
+        android:id="@+id/btn_eye2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:backgroundTint="#00FFFFFF"
+        android:src="@mipmap/ic_eye"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toEndOf="@+id/EditTextMDP2"
         app:layout_constraintTop_toBottomOf="@+id/EditTextMDP" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

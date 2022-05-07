@@ -1,14 +1,22 @@
 package com.example.movieapp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,7 +33,12 @@ import java.util.List;
 public class activityInformation extends AppCompatActivity {
     long newId;
     TextView title;
+    String poster;
+    ImageView image;
     RequestQueue queue;
+    ImageButton imagebutton;
+
+    database h = new database(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +47,29 @@ public class activityInformation extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         newId= extras.getLong("id");
         title = findViewById(R.id.MovieName);
+        image = findViewById(R.id.MoviePoster);
         queue = Volley.newRequestQueue(this);
         try {
             getJsonRep();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        imagebutton = findViewById(R.id.button_star);
+
+        imagebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // if is not on fav table in BDD && connected
+                imagebutton.setImageResource(R.drawable.star_on);
+
+               // Favoris favoris = new Favoris(getIdUtilisateur(),newId);
+              //SS  h.insertFav(favoris);
+
+                //else --> create account or connect to ur account
+
+            }
+        });
 
 
     }
@@ -50,8 +80,10 @@ public class activityInformation extends AppCompatActivity {
             try {
                 JSONObject obj = new JSONObject(reponse);
                 title.setText(obj.getString("title"));
-                //poster = obj.getString("poster_path");
-                //poster = "https://image.tmdb.org/t/p/w500" + poster;
+                poster = obj.getString("poster_path");
+                poster = "https://image.tmdb.org/t/p/w500" + poster;
+                image.setImageURI(Uri.parse(poster));
+                Picasso.get().load(poster).into(image);
 
             } catch (JSONException e) {
                 e.printStackTrace();

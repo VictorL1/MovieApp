@@ -15,8 +15,10 @@ public class database extends SQLiteOpenHelper {
     public static final String IDUtilisateur = "ID";
     public static final String Username = "Username";
     public static final String Email = "Email";
-
     public static final String Password = "Password";
+
+    public static final String IdFavoris = "IdFavoris";
+
 
     public database(@Nullable Context context) {
         super(context, "MovieDatabase", null, 3);
@@ -30,14 +32,22 @@ public class database extends SQLiteOpenHelper {
                 + Email + " String DEFAULT 'username@gmail.com',"
                 + Password +" String DEFAULT '1234' );";
         db.execSQL(createTableUtilisateur);
+
+        String createTableFavoris= "CREATE TABLE " + "Favoris" + "(" + "IDUtilisateur" + " INTEGER PRIMARY KEY ," +
+                IdFavoris +" STRING DEFAULT '0' );";
+        db.execSQL(createTableFavoris);
     }
+
 
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + "Utilisateur");
         onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS " + "Favoris");
+        onCreate(db);
     }
+
     public boolean SauvagarderUtilisateur(Utilisateur utilisateur){
         SQLiteDatabase db = this.getWritableDatabase();
         Long numIdUser = DatabaseUtils.queryNumEntries(db,"Utilisateur",null);
@@ -56,6 +66,28 @@ public class database extends SQLiteOpenHelper {
 
 
             db.update("Utilisateur", contentValues, "ID= ? ", new String[]{"1"});
+            return true;
+        }
+        return false;
+    }
+
+    public boolean SauvagarderFavoris(Favoris favoris){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Long numIdUser = DatabaseUtils.queryNumEntries(db,"Favoris",null);
+        if (numIdUser < 1) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(IDUtilisateur, 1);
+            long result = db.insert("Favoris", "ID", contentValues);
+        }
+        numIdUser = DatabaseUtils.queryNumEntries(db,"Favoris",null);
+        if (numIdUser >= 1) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(IDUtilisateur, 1);
+            //contentValues.put(IdFavoris, utilisateur.IdFavoris);
+
+
+
+            db.update("Favoris", contentValues, "ID= ? ", new String[]{"1"});
             return true;
         }
         return false;
@@ -82,6 +114,26 @@ public class database extends SQLiteOpenHelper {
         return false;
     }
 
+   /* @SuppressLint("Range")
+    public boolean ChargerFavoris(Favoris favoris){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] ColonnesFavoris = { "IDUtilisateur", "IdFavoris"};
+
+
+        Cursor cursor =db.query("Favoris", ColonnesFavoris, "ID = ?",new String[]{"1"},null,null,null);
+        if( cursor != null && cursor.moveToFirst() ){
+            favoris.IdUtilisateur =cursor.getString(cursor.getColumnIndex("IDUtilisateur"));
+            favoris.IdFavoris=cursor.getString(cursor.getColumnIndex("IdFavoris"));
+
+            cursor.close();
+            return true;
+
+        }
+        return false;
+    } */
+
     public void insertUser(Utilisateur user){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -90,7 +142,16 @@ public class database extends SQLiteOpenHelper {
         cv.put("email", user.getMail());
         cv.put("password", user.getPassword());
 
-        db.insert("utilisateur",null, cv);
+        db.insert("Utilisateur",null, cv);
+    }
+
+    public void insertFav(Favoris favoris){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("IdFavoris", favoris.getIdUtilisateur());
+
+        db.insert("Favoris",null, cv);
     }
 /*
     public void updateUser(Utilisateur user){
